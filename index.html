@@ -1,0 +1,2496 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>ID Generator</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Font -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  >
+
+  <style>
+
+    * {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+    }
+
+    .step {
+      display: none;
+    }
+
+    .step.active {
+      display: block;
+    }
+
+    .id-page {
+      display: none;
+    }
+
+    .id-page.active {
+      display: flex;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      outline: none;
+    }
+
+    .cards-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+      align-items: center;
+    }
+
+    /* =====================================================
+       PRINT
+    ===================================================== */
+
+    @media print {
+
+      body {
+        background: white !important;
+        padding: 0 !important;
+        margin: 0 !important;
+      }
+
+      .no-print {
+        display: none !important;
+      }
+
+      #idPage {
+        display: flex !important;
+        min-height: auto !important;
+        padding: 0 !important;
+        background: white !important;
+      }
+
+      .cards-wrapper {
+        gap: 20px;
+      }
+
+      .id-card {
+        box-shadow: none !important;
+        break-inside: avoid;
+        page-break-inside: avoid;
+      }
+
+    }
+
+
+    /* =====================================================
+       RESPONSIVE
+    ===================================================== */
+
+    @media (max-width: 650px) {
+
+      .id-card {
+        transform: scale(0.8);
+        transform-origin: top center;
+        margin-bottom: -70px;
+      }
+
+    }
+
+
+    @media (max-width: 500px) {
+
+      .id-card {
+        transform: scale(0.62);
+        margin-bottom: -140px;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+
+<body class="bg-[#0b0f19]">
+
+
+<!-- =========================================================
+     FORM PAGE
+========================================================= -->
+
+<div
+  id="formPage"
+  class="min-h-screen flex items-center justify-center px-4 py-10"
+>
+
+  <div class="w-full max-w-2xl">
+
+
+    <!-- =====================================================
+         FORM HEADER
+    ====================================================== -->
+
+    <div class="text-center mb-8">
+
+      <div
+        class="mx-auto mb-4 flex h-16 w-16 items-center justify-center overflow-hidden rounded-full bg-white p-1 shadow-lg"
+      >
+
+        <img
+          id="formLogo"
+          src="uda-logo.png"
+          alt="UODA"
+          class="h-full w-full rounded-full object-contain"
+        >
+
+      </div>
+
+
+      <h1
+        class="text-2xl font-extrabold text-white"
+      >
+        Student ID Card Generator
+      </h1>
+
+
+      <p
+        class="mt-2 text-sm text-slate-400"
+      >
+        University of Development Alternative
+      </p>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         PROGRESS
+    ====================================================== -->
+
+    <div class="mb-8">
+
+      <div class="flex items-center justify-center">
+
+
+        <!-- Step 1 -->
+
+        <div class="flex items-center">
+
+          <div
+            id="progress1"
+            class="flex h-9 w-9 items-center justify-center rounded-full bg-sky-500 text-sm font-bold text-white"
+          >
+            1
+          </div>
+
+        </div>
+
+
+        <div
+          id="line1"
+          class="h-1 w-16 bg-slate-700"
+        ></div>
+
+
+        <!-- Step 2 -->
+
+        <div>
+
+          <div
+            id="progress2"
+            class="flex h-9 w-9 items-center justify-center rounded-full bg-slate-700 text-sm font-bold text-slate-400"
+          >
+            2
+          </div>
+
+        </div>
+
+
+        <div
+          id="line2"
+          class="h-1 w-16 bg-slate-700"
+        ></div>
+
+
+        <!-- Step 3 -->
+
+        <div>
+
+          <div
+            id="progress3"
+            class="flex h-9 w-9 items-center justify-center rounded-full bg-slate-700 text-sm font-bold text-slate-400"
+          >
+            3
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div
+        class="mt-3 flex justify-between px-[30px] text-[10px] font-semibold uppercase tracking-wider text-slate-500"
+      >
+
+        <span>Personal</span>
+
+        <span>Academic</span>
+
+        <span>Images</span>
+
+      </div>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         FORM CARD
+    ====================================================== -->
+
+    <div
+      class="rounded-2xl border border-slate-700 bg-slate-900 p-6 shadow-2xl md:p-8"
+    >
+
+
+      <!-- ===================================================
+           STEP 1
+      ==================================================== -->
+
+      <div
+        id="step1"
+        class="step active"
+      >
+
+
+        <div class="mb-6">
+
+          <h2
+            class="text-xl font-bold text-white"
+          >
+            Personal Information
+          </h2>
+
+          <p
+            class="mt-1 text-sm text-slate-400"
+          >
+            Enter the student's basic information.
+          </p>
+
+        </div>
+
+
+
+        <div class="space-y-5">
+
+
+          <!-- Full Name -->
+
+          <div>
+
+            <label
+              class="mb-2 block text-xs font-bold uppercase tracking-wide text-slate-400"
+            >
+              Full Name *
+            </label>
+
+            <input
+              id="fullName"
+              type="text"
+              placeholder="Enter full name"
+              class="w-full rounded-lg border border-slate-700 bg-slate-800 px-4 py-3 text-sm text-white placeholder-slate-500 focus:border-sky-500"
+            >
+
+          </div>
+
+
+
+          <!-- Father's Name -->
+
+          <div>
+
+            <label
+              class="mb-2 block text-xs font-bold uppercase tracking-wide text-slate-400"
+            >
+              Father's Name *
+            </label>
+
+            <input
+              id="fatherName"
+              type="text"
+              placeholder="Enter father's name"
+              class="w-full rounded-lg border border-slate-700 bg-slate-800 px-4 py-3 text-sm text-white placeholder-slate-500 focus:border-sky-500"
+            >
+
+          </div>
+
+
+
+          <!-- Blood + Phone -->
+
+          <div
+            class="grid grid-cols-1 gap-5 sm:grid-cols-2"
+          >
+
+
+            <div>
+
+              <label
+                class="mb-2 block text-xs font-bold uppercase tracking-wide text-slate-400"
+              >
+                Blood Group *
+              </label>
+
+              <select
+                id="blood"
+                class="w-full rounded-lg border border-slate-700 bg-slate-800 px-4 py-3 text-sm text-white focus:border-sky-500"
+              >
+
+                <option value="">
+                  Select
+                </option>
+
+                <option value="A+">A+</option>
+                <option value="A-">A-</option>
+
+                <option value="B+">B+</option>
+                <option value="B-">B-</option>
+
+                <option value="AB+">AB+</option>
+                <option value="AB-">AB-</option>
+
+                <option value="O+">O+</option>
+                <option value="O-">O-</option>
+
+              </select>
+
+            </div>
+
+
+
+            <div>
+
+              <label
+                class="mb-2 block text-xs font-bold uppercase tracking-wide text-slate-400"
+              >
+                Phone
+              </label>
+
+              <input
+                id="phone"
+                type="tel"
+                placeholder="017XXXXXXXX"
+                class="w-full rounded-lg border border-slate-700 bg-slate-800 px-4 py-3 text-sm text-white placeholder-slate-500 focus:border-sky-500"
+              >
+
+            </div>
+
+
+          </div>
+
+
+        </div>
+
+
+
+        <!-- Navigation -->
+
+        <div class="mt-8 flex justify-end">
+
+          <button
+            type="button"
+            onclick="nextStep()"
+            class="rounded-lg bg-sky-600 px-6 py-3 text-sm font-bold text-white transition hover:bg-sky-500"
+          >
+            Next
+          </button>
+
+        </div>
+
+
+      </div>
+
+
+
+      <!-- ===================================================
+           STEP 2
+      ==================================================== -->
+
+      <div
+        id="step2"
+        class="step"
+      >
+
+
+        <div class="mb-6">
+
+          <h2
+            class="text-xl font-bold text-white"
+          >
+            Academic Information
+          </h2>
+
+          <p
+            class="mt-1 text-sm text-slate-400"
+          >
+            Enter the student's university information.
+          </p>
+
+        </div>
+
+
+
+        <div class="space-y-5">
+
+
+          <!-- Department -->
+
+          <div>
+
+            <label
+              class="mb-2 block text-xs font-bold uppercase tracking-wide text-slate-400"
+            >
+              Department *
+            </label>
+
+            <input
+              id="department"
+              type="text"
+              value="Computer Science & Engineering"
+              class="w-full rounded-lg border border-slate-700 bg-slate-800 px-4 py-3 text-sm text-white focus:border-sky-500"
+            >
+
+          </div>
+
+
+
+          <!-- Student ID + Account ID -->
+
+          <div
+            class="grid grid-cols-1 gap-5 sm:grid-cols-2"
+          >
+
+
+            <div>
+
+              <label
+                class="mb-2 block text-xs font-bold uppercase tracking-wide text-slate-400"
+              >
+                Student ID *
+              </label>
+
+              <input
+                id="studentId"
+                type="text"
+                placeholder="e.g. 240101"
+                class="w-full rounded-lg border border-slate-700 bg-slate-800 px-4 py-3 text-sm text-white placeholder-slate-500 focus:border-sky-500"
+              >
+
+            </div>
+
+
+
+            <div>
+
+              <label
+                class="mb-2 block text-xs font-bold uppercase tracking-wide text-slate-400"
+              >
+                Account ID
+              </label>
+
+              <input
+                id="accountId"
+                type="text"
+                placeholder="Account ID"
+                class="w-full rounded-lg border border-slate-700 bg-slate-800 px-4 py-3 text-sm text-white placeholder-slate-500 focus:border-sky-500"
+              >
+
+            </div>
+
+
+          </div>
+
+
+
+          <!-- Batch + UID -->
+
+          <div
+            class="grid grid-cols-1 gap-5 sm:grid-cols-2"
+          >
+
+
+            <div>
+
+              <label
+                class="mb-2 block text-xs font-bold uppercase tracking-wide text-slate-400"
+              >
+                Batch
+              </label>
+
+              <input
+                id="batch"
+                type="text"
+                placeholder="e.g. 65"
+                class="w-full rounded-lg border border-slate-700 bg-slate-800 px-4 py-3 text-sm text-white placeholder-slate-500 focus:border-sky-500"
+              >
+
+            </div>
+
+
+
+            <div>
+
+              <label
+                class="mb-2 block text-xs font-bold uppercase tracking-wide text-slate-400"
+              >
+                UID
+              </label>
+
+              <input
+                id="uid"
+                type="text"
+                placeholder="UID"
+                class="w-full rounded-lg border border-slate-700 bg-slate-800 px-4 py-3 text-sm text-white placeholder-slate-500 focus:border-sky-500"
+              >
+
+            </div>
+
+
+          </div>
+
+
+
+          <!-- Email -->
+
+          <div>
+
+            <label
+              class="mb-2 block text-xs font-bold uppercase tracking-wide text-slate-400"
+            >
+              Student E-mail
+            </label>
+
+            <input
+              id="email"
+              type="email"
+              placeholder="student@example.com"
+              class="w-full rounded-lg border border-slate-700 bg-slate-800 px-4 py-3 text-sm text-white placeholder-slate-500 focus:border-sky-500"
+            >
+
+          </div>
+
+
+
+          <!-- =================================================
+               BACK CARD INFORMATION
+          ================================================== -->
+
+          <div
+            class="mt-8 border-t border-slate-700 pt-6"
+          >
+
+            <h3
+              class="text-base font-bold text-white"
+            >
+              Back Card Information
+            </h3>
+
+            <p
+              class="mt-1 text-xs text-slate-400"
+            >
+              These details will appear on the back of the ID card.
+            </p>
+
+          </div>
+
+
+
+          <!-- Campus Address -->
+
+          <div>
+
+            <label
+              class="mb-2 block text-xs font-bold uppercase tracking-wide text-slate-400"
+            >
+              Campus Address
+            </label>
+
+            <input
+              id="campusAddress"
+              type="text"
+              value="University of Development Alternative, Dhaka, Bangladesh"
+              class="w-full rounded-lg border border-slate-700 bg-slate-800 px-4 py-3 text-sm text-white focus:border-sky-500"
+            >
+
+          </div>
+
+
+
+          <!-- Official Email -->
+
+          <div>
+
+            <label
+              class="mb-2 block text-xs font-bold uppercase tracking-wide text-slate-400"
+            >
+              Official University Email
+            </label>
+
+            <input
+              id="officialEmail"
+              type="email"
+              value="info@uoda.edu.bd"
+              class="w-full rounded-lg border border-slate-700 bg-slate-800 px-4 py-3 text-sm text-white focus:border-sky-500"
+            >
+
+          </div>
+
+
+
+          <!-- Return Notice -->
+
+          <div>
+
+            <label
+              class="mb-2 block text-xs font-bold uppercase tracking-wide text-slate-400"
+            >
+              Return Notice
+            </label>
+
+            <textarea
+              id="returnNotice"
+              rows="3"
+              class="w-full resize-none rounded-lg border border-slate-700 bg-slate-800 px-4 py-3 text-sm text-white focus:border-sky-500"
+            >This card is non-transferable and remains the official property of the university. If found, please return it to the Registrar's Office immediately.</textarea>
+
+          </div>
+
+
+        </div>
+
+
+
+        <!-- Navigation -->
+
+        <div class="mt-8 flex justify-between">
+
+
+          <button
+            type="button"
+            onclick="previousStep()"
+            class="rounded-lg border border-slate-700 px-6 py-3 text-sm font-bold text-slate-300 transition hover:bg-slate-800"
+          >
+            Back
+          </button>
+
+
+          <button
+            type="button"
+            onclick="nextStep()"
+            class="rounded-lg bg-sky-600 px-6 py-3 text-sm font-bold text-white transition hover:bg-sky-500"
+          >
+            Next
+          </button>
+
+
+        </div>
+
+
+      </div>
+
+
+
+      <!-- ===================================================
+           STEP 3
+      ==================================================== -->
+
+      <div
+        id="step3"
+        class="step"
+      >
+
+
+        <div class="mb-6">
+
+          <h2
+            class="text-xl font-bold text-white"
+          >
+            Upload Images
+          </h2>
+
+          <p
+            class="mt-1 text-sm text-slate-400"
+          >
+            Upload the student photo and university logo.
+          </p>
+
+        </div>
+
+
+
+        <div class="space-y-6">
+
+
+          <!-- Student Photo -->
+
+          <div>
+
+            <label
+              class="mb-2 block text-xs font-bold uppercase tracking-wide text-slate-400"
+            >
+              Student Photo *
+            </label>
+
+
+            <label
+              class="flex cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-dashed border-slate-700 bg-slate-800 p-6 transition hover:border-sky-500"
+            >
+
+
+              <img
+                id="studentPreview"
+                class="mb-3 hidden h-32 w-28 rounded-lg object-cover"
+                alt="Student preview"
+              >
+
+
+              <div
+                id="studentUploadText"
+                class="text-center"
+              >
+
+                <div class="mb-2 text-3xl">
+                  📷
+                </div>
+
+                <p
+                  class="text-sm font-semibold text-slate-300"
+                >
+                  Click to upload student photo
+                </p>
+
+                <p
+                  class="mt-1 text-xs text-slate-500"
+                >
+                  JPG / PNG
+                </p>
+
+              </div>
+
+
+              <input
+                id="studentPhoto"
+                type="file"
+                accept="image/*"
+                class="hidden"
+                onchange="previewStudentPhoto(event)"
+              >
+
+            </label>
+
+          </div>
+
+
+
+          <!-- University Logo -->
+
+          <div>
+
+            <label
+              class="mb-2 block text-xs font-bold uppercase tracking-wide text-slate-400"
+            >
+              University Logo
+            </label>
+
+
+            <label
+              class="flex cursor-pointer items-center gap-5 rounded-xl border-2 border-dashed border-slate-700 bg-slate-800 p-5 transition hover:border-sky-500"
+            >
+
+
+              <img
+                id="logoPreview"
+                src="uda-logo.png"
+                class="h-16 w-16 rounded-full bg-white object-contain p-1"
+                alt="Logo preview"
+              >
+
+
+              <div>
+
+                <p
+                  class="text-sm font-semibold text-slate-300"
+                >
+                  Change university logo
+                </p>
+
+                <p
+                  class="mt-1 text-xs text-slate-500"
+                >
+                  Leave unchanged to use uda-logo.png
+                </p>
+
+              </div>
+
+
+              <input
+                id="logoUpload"
+                type="file"
+                accept="image/*"
+                class="hidden"
+                onchange="previewLogo(event)"
+              >
+
+            </label>
+
+          </div>
+
+
+        </div>
+
+
+
+        <!-- Navigation -->
+
+        <div class="mt-8 flex justify-between">
+
+
+          <button
+            type="button"
+            onclick="previousStep()"
+            class="rounded-lg border border-slate-700 px-6 py-3 text-sm font-bold text-slate-300 transition hover:bg-slate-800"
+          >
+            Back
+          </button>
+
+
+          <button
+            type="button"
+            onclick="generateCard()"
+            class="rounded-lg bg-gradient-to-r from-sky-600 to-indigo-600 px-7 py-3 text-sm font-bold text-white shadow-lg transition hover:from-sky-500 hover:to-indigo-500"
+          >
+            Generate ID Card
+          </button>
+
+
+        </div>
+
+
+      </div>
+
+
+    </div>
+
+  </div>
+
+</div>
+
+
+
+<!-- =========================================================
+     GENERATED ID CARDS PAGE
+========================================================= -->
+
+<div
+  id="idPage"
+  class="id-page min-h-screen flex-col items-center justify-center bg-[#0b0f19] px-5 py-10"
+>
+
+
+  <!-- Buttons -->
+
+  <div
+    class="no-print mb-8 flex flex-wrap justify-center gap-3"
+  >
+
+    <button
+      type="button"
+      onclick="editCard()"
+      class="rounded-lg border border-slate-600 bg-slate-800 px-5 py-3 text-sm font-bold text-white hover:bg-slate-700"
+    >
+      ← Edit Information
+    </button>
+
+
+    <button
+      type="button"
+      onclick="window.print()"
+      class="rounded-lg bg-sky-600 px-5 py-3 text-sm font-bold text-white hover:bg-sky-500"
+    >
+      Print ID Cards
+    </button>
+
+  </div>
+
+
+
+  <!-- =====================================================
+       BOTH CARDS
+  ====================================================== -->
+
+  <div class="cards-wrapper">
+
+
+    <!-- ===================================================
+         FRONT CARD
+    ==================================================== -->
+
+    <div
+      id="idCardFront"
+      class="id-card relative flex h-[380px] w-[600px] flex-col overflow-hidden rounded-[18px] border border-white/10 bg-white shadow-[0_25px_50px_-12px_rgba(0,0,0,0.6)]"
+    >
+
+
+      <!-- Header -->
+
+      <div
+        class="relative flex h-[92px] shrink-0 items-center justify-between overflow-hidden px-6 text-white"
+        style="background: linear-gradient(135deg, #0f172a 0%, #172554 55%, #075985 100%);"
+      >
+
+
+        <!-- Decorative circles -->
+
+        <div
+          class="absolute -right-[70px] -top-[80px] h-[180px] w-[180px] rounded-full border border-sky-400/15"
+        ></div>
+
+
+        <div
+          class="absolute bottom-[-75px] right-[50px] h-[110px] w-[110px] rounded-full border border-white/[0.08]"
+        ></div>
+
+
+
+        <!-- Logo + University -->
+
+        <div
+          class="relative z-10 flex items-center gap-[14px]"
+        >
+
+
+          <div
+            class="flex h-[58px] w-[58px] shrink-0 items-center justify-center overflow-hidden rounded-full bg-white p-1 shadow-[0_5px_15px_rgba(0,0,0,0.25)]"
+          >
+
+            <img
+              id="cardLogo"
+              src="uda-logo.png"
+              alt="UODA"
+              class="h-full w-full rounded-full object-contain"
+            >
+
+          </div>
+
+
+          <div>
+
+            <div
+              class="text-[16px] font-extrabold uppercase leading-[1.25] tracking-[0.3px] text-white"
+            >
+              University of Development Alternative
+            </div>
+
+
+            <div
+              class="mt-1 text-[9px] font-semibold uppercase tracking-[1.4px] text-sky-200"
+            >
+              Education For Human Development
+            </div>
+
+          </div>
+
+
+        </div>
+
+
+
+        <!-- Badge -->
+
+        <div
+          class="relative z-10 rounded-full border border-sky-300/40 bg-sky-500/[0.18] px-[13px] py-[7px] text-[9px] font-bold uppercase tracking-[1.5px] text-sky-100"
+        >
+          Student ID
+        </div>
+
+
+      </div>
+
+
+
+      <!-- Accent -->
+
+      <div
+        class="h-1 w-full shrink-0"
+        style="background: linear-gradient(90deg, #0284c7 0%, #38bdf8 40%, #6366f1 70%, #8b5cf6 100%);"
+      ></div>
+
+
+
+      <!-- Body -->
+
+      <div
+        class="relative flex flex-1 gap-6 overflow-hidden bg-[radial-gradient(circle_at_90%_100%,rgba(14,165,233,0.08),transparent_50%)] px-6 py-[22px]"
+      >
+
+
+        <!-- Watermark -->
+
+        <div
+          class="pointer-events-none absolute bottom-[-45px] right-[-35px] z-0 h-[190px] w-[190px] opacity-[0.035]"
+        >
+
+          <img
+            id="watermarkLogo"
+            src="uda-logo.png"
+            alt=""
+            class="h-full w-full object-contain"
+          >
+
+        </div>
+
+
+
+        <!-- Photo -->
+
+        <div
+          class="relative z-10 flex w-[135px] shrink-0 flex-col items-center"
+        >
+
+
+          <div
+            class="h-[145px] w-[125px] overflow-hidden rounded-[14px] border-2 border-slate-300 bg-slate-50 p-1 shadow-[0_8px_20px_rgba(15,23,42,0.08)]"
+          >
+
+            <div
+              class="flex h-full w-full items-center justify-center overflow-hidden rounded-[9px] bg-slate-100"
+            >
+
+              <img
+                id="cardStudentPhoto"
+                src=""
+                alt="Student"
+                class="h-full w-full object-cover"
+              >
+
+            </div>
+
+          </div>
+
+
+
+          <!-- Blood -->
+
+          <div
+            class="mt-3 flex items-center gap-[5px] rounded-lg border border-red-200 bg-red-50 px-[13px] py-[5px] text-[10px] font-extrabold text-red-600"
+          >
+
+            <span>BLOOD:</span>
+
+            <span id="cardBlood">
+              -
+            </span>
+
+          </div>
+
+
+        </div>
+
+
+
+        <!-- Information -->
+
+        <div
+          class="relative z-10 flex flex-1 flex-col"
+        >
+
+
+          <!-- Name -->
+
+          <div
+            class="mb-[13px] border-b-2 border-slate-100 pb-[9px]"
+          >
+
+            <div
+              id="cardName"
+              class="text-[26px] font-extrabold tracking-[-0.03em] text-slate-900"
+            >
+              Student Name
+            </div>
+
+
+            <div
+              id="cardDepartment"
+              class="mt-[3px] text-[11px] font-bold uppercase tracking-[0.7px] text-sky-900"
+            >
+              Department of Computer Science & Engineering
+            </div>
+
+          </div>
+
+
+
+          <!-- Details -->
+
+          <div
+            class="grid grid-cols-2 gap-x-5 gap-y-1"
+          >
+
+
+            <!-- Father's Name -->
+
+            <div
+              class="col-span-2 flex flex-col"
+            >
+
+              <span
+                class="text-[10px] font-bold uppercase tracking-[0.7px] text-slate-500"
+              >
+                Father's Name
+              </span>
+
+
+              <span
+                id="cardFather"
+                class="mt-[1px] text-[12px] font-semibold text-slate-800"
+              >
+                -
+              </span>
+
+            </div>
+
+
+
+            <!-- Student ID -->
+
+            <div
+              class="flex flex-col"
+            >
+
+              <span
+                class="text-[10px] font-bold uppercase tracking-[0.7px] text-slate-500"
+              >
+                Student ID
+              </span>
+
+
+              <span
+                id="cardStudentId"
+                class="mt-[1px] text-[12px] font-semibold text-slate-800"
+              >
+                -
+              </span>
+
+            </div>
+
+
+
+            <!-- Account -->
+
+            <div
+              class="flex flex-col"
+            >
+
+              <span
+                class="text-[10px] font-bold uppercase tracking-[0.7px] text-slate-500"
+              >
+                Account ID
+              </span>
+
+
+              <span
+                id="cardAccountId"
+                class="mt-[1px] text-[12px] font-semibold text-slate-800"
+              >
+                -
+              </span>
+
+            </div>
+
+
+
+            <!-- Batch -->
+
+            <div
+              class="flex flex-col"
+            >
+
+              <span
+                class="text-[10px] font-bold uppercase tracking-[0.7px] text-slate-500"
+              >
+                Batch
+              </span>
+
+
+              <span
+                id="cardBatch"
+                class="mt-[1px] text-[12px] font-semibold text-slate-800"
+              >
+                -
+              </span>
+
+            </div>
+
+
+
+            <!-- UID -->
+
+            <div
+              class="flex flex-col"
+            >
+
+              <span
+                class="text-[10px] font-bold uppercase tracking-[0.7px] text-slate-500"
+              >
+                UID
+              </span>
+
+
+              <span
+                id="cardUid"
+                class="mt-[1px] text-[12px] font-semibold text-slate-800"
+              >
+                -
+              </span>
+
+            </div>
+
+
+
+            <!-- Email -->
+
+            <div
+              class="flex flex-col"
+            >
+
+              <span
+                class="text-[10px] font-bold uppercase tracking-[0.7px] text-slate-500"
+              >
+                E-mail
+              </span>
+
+
+              <span
+                id="cardEmail"
+                class="mt-[1px] truncate text-[12px] font-semibold text-slate-800"
+              >
+                -
+              </span>
+
+            </div>
+
+
+
+            <!-- Phone -->
+
+            <div
+              class="flex flex-col"
+            >
+
+              <span
+                class="text-[10px] font-bold uppercase tracking-[0.7px] text-slate-500"
+              >
+                Phone
+              </span>
+
+
+              <span
+                id="cardPhone"
+                class="mt-[1px] text-[12px] font-semibold text-slate-800"
+              >
+                -
+              </span>
+
+            </div>
+
+
+          </div>
+
+
+
+          <!-- Bottom strip -->
+
+          <div
+            class="mt-auto flex items-center gap-[10px] pt-[13px]"
+          >
+
+            <div
+              class="h-px flex-1 bg-slate-200"
+            ></div>
+
+
+            <div
+              class="whitespace-nowrap text-[7px] font-bold uppercase tracking-[1px] text-slate-400"
+            >
+              Official Student Identification
+            </div>
+
+
+            <div
+              class="h-px flex-1 bg-slate-200"
+            ></div>
+
+          </div>
+
+
+        </div>
+
+
+
+        <!-- Decorative dots -->
+
+        <div
+          class="absolute bottom-[18px] left-6 flex gap-[5px] opacity-70"
+        >
+
+          <span
+            class="h-[5px] w-[5px] rounded-full bg-sky-400"
+          ></span>
+
+          <span
+            class="h-[5px] w-[5px] rounded-full bg-indigo-400"
+          ></span>
+
+          <span
+            class="h-[5px] w-[5px] rounded-full bg-purple-400"
+          ></span>
+
+        </div>
+
+
+      </div>
+
+
+    </div>
+
+
+
+    <!-- =====================================================
+         BACK CARD
+    ====================================================== -->
+
+    <div
+      id="idCardBack"
+      class="id-card relative flex h-[380px] w-[600px] flex-col overflow-hidden rounded-[18px] border border-white/10 bg-white shadow-[0_25px_50px_-12px_rgba(0,0,0,0.6)]"
+    >
+
+
+      <!-- Magnetic Stripe -->
+
+      <div
+        class="relative mt-6 h-12 w-full shrink-0 bg-slate-800"
+      >
+
+        <div
+          class="absolute left-0 right-0 top-1/2 h-[10px] -translate-y-1/2 bg-slate-950"
+        ></div>
+
+      </div>
+
+
+
+      <!-- Watermark -->
+
+      <div
+        class="pointer-events-none absolute left-1/2 top-[53%] z-0 h-[220px] w-[220px] -translate-x-1/2 -translate-y-1/2 opacity-[0.04]"
+      >
+
+        <img
+          id="backWatermarkLogo"
+          src="uda-logo.png"
+          alt=""
+          class="h-full w-full object-contain"
+        >
+
+      </div>
+
+
+
+      <!-- Main Back Content -->
+
+      <div
+        class="relative z-10 flex flex-1 flex-col gap-4 px-8 pt-5"
+      >
+
+
+        <!-- Terms -->
+
+        <div
+          class="rounded-[10px] border border-slate-200 bg-slate-50 px-4 py-3"
+        >
+
+          <div
+            class="mb-1 text-[10px] font-extrabold uppercase tracking-[0.8px] text-slate-900"
+          >
+            Terms & Conditions
+          </div>
+
+
+          <div
+            id="cardReturnNotice"
+            class="text-[10px] font-medium leading-[1.4] text-slate-500"
+          >
+            This card is non-transferable and remains the official property
+            of the university. If found, please return it to the Registrar's
+            Office immediately.
+          </div>
+
+        </div>
+
+
+
+        <!-- Contact Information -->
+
+        <div
+          class="grid grid-cols-2 gap-4"
+        >
+
+
+          <!-- Campus Address -->
+
+          <div
+            class="flex items-start gap-3"
+          >
+
+            <div
+              class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-slate-100 text-sky-600"
+            >
+
+              <svg
+                viewBox="0 0 24 24"
+                class="h-[15px] w-[15px]"
+                fill="currentColor"
+              >
+
+                <path
+                  d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5 14.5 7.62 14.5 9 13.38 11.5 12 11.5z"
+                ></path>
+
+              </svg>
+
+            </div>
+
+
+            <div
+              class="flex min-w-0 flex-col"
+            >
+
+              <span
+                class="text-[9px] font-bold uppercase tracking-[0.5px] text-slate-400"
+              >
+                Campus Address
+              </span>
+
+
+              <span
+                id="cardCampusAddress"
+                class="mt-[1px] text-[11px] font-semibold leading-[1.3] text-slate-800"
+              >
+                University of Development Alternative, Dhaka, Bangladesh
+              </span>
+
+            </div>
+
+          </div>
+
+
+
+          <!-- Official Email -->
+
+          <div
+            class="flex items-start gap-3"
+          >
+
+            <div
+              class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-slate-100 text-sky-600"
+            >
+
+              <svg
+                viewBox="0 0 24 24"
+                class="h-[15px] w-[15px]"
+                fill="currentColor"
+              >
+
+                <path
+                  d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"
+                ></path>
+
+              </svg>
+
+            </div>
+
+
+            <div
+              class="flex min-w-0 flex-col"
+            >
+
+              <span
+                class="text-[9px] font-bold uppercase tracking-[0.5px] text-slate-400"
+              >
+                Official Email
+              </span>
+
+
+              <span
+                id="cardOfficialEmail"
+                class="mt-[1px] break-all text-[11px] font-semibold leading-[1.3] text-slate-800"
+              >
+                info@uoda.edu.bd
+              </span>
+
+            </div>
+
+          </div>
+
+
+        </div>
+
+
+
+        <!-- Bottom Notice -->
+
+        <div
+          class="mt-auto mb-4 flex items-center justify-center gap-3"
+        >
+
+          <div
+            class="h-px flex-1 bg-slate-200"
+          ></div>
+
+
+          <div
+            class="text-center text-[8px] font-bold uppercase tracking-[1px] text-slate-400"
+          >
+            Please return if found
+          </div>
+
+
+          <div
+            class="h-px flex-1 bg-slate-200"
+          ></div>
+
+        </div>
+
+
+      </div>
+
+
+
+      <!-- Footer -->
+
+      <div
+        class="relative flex items-center justify-between bg-gradient-to-r from-slate-900 to-slate-800 px-8 py-3 text-white"
+      >
+
+        <div
+          class="absolute left-0 right-0 top-0 h-1 bg-gradient-to-r from-sky-400 via-indigo-400 to-purple-400"
+        ></div>
+
+
+        <div
+          class="text-[12px] font-extrabold uppercase tracking-[0.5px] text-slate-100"
+        >
+          University of Development Alternative
+        </div>
+
+
+        <div
+          class="text-[9px] font-semibold tracking-[0.5px] text-sky-300"
+        >
+          Property of University
+        </div>
+
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+</div>
+
+
+
+<!-- =========================================================
+     JAVASCRIPT
+========================================================= -->
+
+<script>
+
+
+/* ==========================================================
+   CURRENT STEP
+========================================================== */
+
+let currentStep = 1;
+
+
+
+/* ==========================================================
+   NEXT STEP
+========================================================== */
+
+function nextStep() {
+
+  if (!validateStep(currentStep)) {
+
+    return;
+
+  }
+
+
+  if (currentStep < 3) {
+
+    currentStep++;
+
+    showStep(currentStep);
+
+  }
+
+}
+
+
+
+/* ==========================================================
+   PREVIOUS STEP
+========================================================== */
+
+function previousStep() {
+
+  if (currentStep > 1) {
+
+    currentStep--;
+
+    showStep(currentStep);
+
+  }
+
+}
+
+
+
+/* ==========================================================
+   SHOW STEP
+========================================================== */
+
+function showStep(step) {
+
+
+  document
+    .querySelectorAll(".step")
+    .forEach(element => {
+
+      element.classList.remove("active");
+
+    });
+
+
+  const selectedStep =
+    document.getElementById(`step${step}`);
+
+
+  if (selectedStep) {
+
+    selectedStep.classList.add("active");
+
+  }
+
+
+
+  /* Progress circles */
+
+  for (let i = 1; i <= 3; i++) {
+
+    const circle =
+      document.getElementById(`progress${i}`);
+
+
+    if (i <= step) {
+
+      circle.classList.remove(
+        "bg-slate-700",
+        "text-slate-400"
+      );
+
+      circle.classList.add(
+        "bg-sky-500",
+        "text-white"
+      );
+
+    } else {
+
+      circle.classList.remove(
+        "bg-sky-500",
+        "text-white"
+      );
+
+      circle.classList.add(
+        "bg-slate-700",
+        "text-slate-400"
+      );
+
+    }
+
+  }
+
+
+
+  /* Progress lines */
+
+  for (let i = 1; i <= 2; i++) {
+
+    const line =
+      document.getElementById(`line${i}`);
+
+
+    if (i < step) {
+
+      line.classList.remove("bg-slate-700");
+
+      line.classList.add("bg-sky-500");
+
+    } else {
+
+      line.classList.remove("bg-sky-500");
+
+      line.classList.add("bg-slate-700");
+
+    }
+
+  }
+
+}
+
+
+
+/* ==========================================================
+   VALIDATION
+========================================================== */
+
+function validateStep(step) {
+
+
+  /* Step 1 */
+
+  if (step === 1) {
+
+    const name =
+      document
+        .getElementById("fullName")
+        .value
+        .trim();
+
+
+    const father =
+      document
+        .getElementById("fatherName")
+        .value
+        .trim();
+
+
+    const blood =
+      document
+        .getElementById("blood")
+        .value;
+
+
+    if (!name) {
+
+      alert(
+        "Please enter the student's full name."
+      );
+
+      return false;
+
+    }
+
+
+    if (!father) {
+
+      alert(
+        "Please enter father's name."
+      );
+
+      return false;
+
+    }
+
+
+    if (!blood) {
+
+      alert(
+        "Please select the blood group."
+      );
+
+      return false;
+
+    }
+
+  }
+
+
+
+  /* Step 2 */
+
+  if (step === 2) {
+
+    const department =
+      document
+        .getElementById("department")
+        .value
+        .trim();
+
+
+    const studentId =
+      document
+        .getElementById("studentId")
+        .value
+        .trim();
+
+
+    if (!department) {
+
+      alert(
+        "Please enter the department."
+      );
+
+      return false;
+
+    }
+
+
+    if (!studentId) {
+
+      alert(
+        "Please enter the student ID."
+      );
+
+      return false;
+
+    }
+
+  }
+
+
+
+  /* Step 3 */
+
+  if (step === 3) {
+
+    const photo =
+      document
+        .getElementById("studentPhoto")
+        .files[0];
+
+
+    if (!photo) {
+
+      alert(
+        "Please upload the student's photo."
+      );
+
+      return false;
+
+    }
+
+  }
+
+
+  return true;
+
+}
+
+
+
+/* ==========================================================
+   STUDENT PHOTO PREVIEW
+========================================================== */
+
+function previewStudentPhoto(event) {
+
+
+  const file =
+    event.target.files[0];
+
+
+  if (!file) {
+
+    return;
+
+  }
+
+
+  const reader =
+    new FileReader();
+
+
+  reader.onload = function(event) {
+
+
+    const preview =
+      document.getElementById(
+        "studentPreview"
+      );
+
+
+    preview.src =
+      event.target.result;
+
+
+    preview.classList.remove(
+      "hidden"
+    );
+
+
+    document
+      .getElementById(
+        "studentUploadText"
+      )
+      .classList.add(
+        "hidden"
+      );
+
+  };
+
+
+  reader.readAsDataURL(file);
+
+}
+
+
+
+/* ==========================================================
+   LOGO PREVIEW
+========================================================== */
+
+function previewLogo(event) {
+
+
+  const file =
+    event.target.files[0];
+
+
+  if (!file) {
+
+    return;
+
+  }
+
+
+  const reader =
+    new FileReader();
+
+
+  reader.onload = function(event) {
+
+
+    document
+      .getElementById("logoPreview")
+      .src =
+      event.target.result;
+
+  };
+
+
+  reader.readAsDataURL(file);
+
+}
+
+
+
+/* ==========================================================
+   GET LOGO
+========================================================== */
+
+function getLogo() {
+
+
+  const uploadedLogo =
+    document
+      .getElementById("logoUpload")
+      .files[0];
+
+
+  if (!uploadedLogo) {
+
+    return Promise.resolve(
+      "uda-logo.png"
+    );
+
+  }
+
+
+  return new Promise(
+    (resolve, reject) => {
+
+
+      const reader =
+        new FileReader();
+
+
+      reader.onload =
+        event => {
+
+          resolve(
+            event.target.result
+          );
+
+        };
+
+
+      reader.onerror =
+        () => {
+
+          reject(
+            new Error(
+              "Could not read logo file."
+            )
+          );
+
+        };
+
+
+      reader.readAsDataURL(
+        uploadedLogo
+      );
+
+    }
+  );
+
+}
+
+
+
+/* ==========================================================
+   READ IMAGE FILE
+========================================================== */
+
+function readFileAsDataURL(file) {
+
+
+  return new Promise(
+    (resolve, reject) => {
+
+
+      const reader =
+        new FileReader();
+
+
+      reader.onload =
+        event => {
+
+          resolve(
+            event.target.result
+          );
+
+        };
+
+
+      reader.onerror =
+        () => {
+
+          reject(
+            new Error(
+              "Could not read image file."
+            )
+          );
+
+        };
+
+
+      reader.readAsDataURL(file);
+
+    }
+  );
+
+}
+
+
+
+/* ==========================================================
+   GENERATE CARD
+========================================================== */
+
+async function generateCard() {
+
+
+  /* Make sure Step 3 is valid */
+
+  if (!validateStep(3)) {
+
+    return;
+
+  }
+
+
+
+  /* ========================================================
+     FRONT CARD DATA
+  ======================================================== */
+
+  const fullName =
+    document
+      .getElementById("fullName")
+      .value
+      .trim();
+
+
+  const fatherName =
+    document
+      .getElementById("fatherName")
+      .value
+      .trim();
+
+
+  const blood =
+    document
+      .getElementById("blood")
+      .value;
+
+
+  const phone =
+    document
+      .getElementById("phone")
+      .value
+      .trim();
+
+
+  const department =
+    document
+      .getElementById("department")
+      .value
+      .trim();
+
+
+  const studentId =
+    document
+      .getElementById("studentId")
+      .value
+      .trim();
+
+
+  const accountId =
+    document
+      .getElementById("accountId")
+      .value
+      .trim();
+
+
+  const batch =
+    document
+      .getElementById("batch")
+      .value
+      .trim();
+
+
+  const uid =
+    document
+      .getElementById("uid")
+      .value
+      .trim();
+
+
+  const email =
+    document
+      .getElementById("email")
+      .value
+      .trim();
+
+
+
+  /* ========================================================
+     BACK CARD DATA
+  ======================================================== */
+
+  const campusAddress =
+    document
+      .getElementById("campusAddress")
+      .value
+      .trim();
+
+
+  const officialEmail =
+    document
+      .getElementById("officialEmail")
+      .value
+      .trim();
+
+
+  const returnNotice =
+    document
+      .getElementById("returnNotice")
+      .value
+      .trim();
+
+
+
+  /* ========================================================
+     STUDENT PHOTO
+  ======================================================== */
+
+  const studentFile =
+    document
+      .getElementById("studentPhoto")
+      .files[0];
+
+
+  if (!studentFile) {
+
+    alert(
+      "Please upload the student's photo."
+    );
+
+    return;
+
+  }
+
+
+
+  try {
+
+
+    /* Read student photo */
+
+    const studentImage =
+      await readFileAsDataURL(
+        studentFile
+      );
+
+
+    /* Read logo */
+
+    const logo =
+      await getLogo();
+
+
+
+    /* ======================================================
+       FRONT CARD
+    ====================================================== */
+
+
+    document
+      .getElementById("cardName")
+      .textContent =
+      fullName || "-";
+
+
+    document
+      .getElementById("cardFather")
+      .textContent =
+      fatherName || "-";
+
+
+    document
+      .getElementById("cardBlood")
+      .textContent =
+      blood || "-";
+
+
+    document
+      .getElementById("cardPhone")
+      .textContent =
+      phone || "-";
+
+
+    document
+      .getElementById("cardDepartment")
+      .textContent =
+      "Department of " +
+      (department || "-");
+
+
+    document
+      .getElementById("cardStudentId")
+      .textContent =
+      studentId || "-";
+
+
+    document
+      .getElementById("cardAccountId")
+      .textContent =
+      accountId || "-";
+
+
+    document
+      .getElementById("cardBatch")
+      .textContent =
+      batch || "-";
+
+
+    document
+      .getElementById("cardUid")
+      .textContent =
+      uid || "-";
+
+
+    document
+      .getElementById("cardEmail")
+      .textContent =
+      email || "-";
+
+
+    document
+      .getElementById("cardStudentPhoto")
+      .src =
+      studentImage;
+
+
+    document
+      .getElementById("cardLogo")
+      .src =
+      logo;
+
+
+    document
+      .getElementById("watermarkLogo")
+      .src =
+      logo;
+
+
+
+    /* ======================================================
+       BACK CARD
+    ====================================================== */
+
+
+    document
+      .getElementById("cardCampusAddress")
+      .textContent =
+      campusAddress || "-";
+
+
+    document
+      .getElementById("cardOfficialEmail")
+      .textContent =
+      officialEmail || "-";
+
+
+    document
+      .getElementById("cardReturnNotice")
+      .textContent =
+      returnNotice || "-";
+
+
+    document
+      .getElementById("backWatermarkLogo")
+      .src =
+      logo;
+
+
+
+    /* ======================================================
+       SHOW ID CARDS
+    ====================================================== */
+
+
+    document
+      .getElementById("formPage")
+      .classList
+      .add("hidden");
+
+
+    document
+      .getElementById("idPage")
+      .classList
+      .add("active");
+
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+
+
+  }
+
+  catch (error) {
+
+
+    console.error(
+      "ID Card Generation Error:",
+      error
+    );
+
+
+    alert(
+      "Something went wrong while generating the ID card. Please try again."
+    );
+
+  }
+
+}
+
+
+
+/* ==========================================================
+   EDIT CARD
+========================================================== */
+
+function editCard() {
+
+
+  document
+    .getElementById("idPage")
+    .classList
+    .remove("active");
+
+
+  document
+    .getElementById("formPage")
+    .classList
+    .remove("hidden");
+
+
+  /*
+    Keep all previously entered information.
+    Only return to Step 1.
+  */
+
+  currentStep = 1;
+
+
+  showStep(1);
+
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+
+}
+
+
+
+/* ==========================================================
+   INITIALIZE
+========================================================== */
+
+showStep(1);
+
+
+</script>
+
+
+</body>
+
+</html>
+```
